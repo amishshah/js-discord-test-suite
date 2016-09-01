@@ -1,3 +1,10 @@
+<style>
+td {
+  padding: 6px;
+  background: #eee;
+}
+</style>
+
 <table>
   <tr>
     <th>Library</th>
@@ -7,6 +14,18 @@
     <td>discord.js</td>
     <td id="discordJSRam"></td>
   </tr>
+  <tr>
+    <td>discord.io</td>
+    <td id="discordIORam"></td>
+  </tr>
+  <tr>
+    <td>discordie</td>
+    <td id="discordieRam"></td>
+  </tr>
+  <tr>
+    <td>eris</td>
+    <td id="erisRam"></td>
+  </tr>
 </table>
 <script>
 const source = new EventSource(`http://${prompt() || '[::1]'}:3000`);
@@ -15,6 +34,15 @@ source.onmessage = m => {
   if (data.t === 'ram') {
     if (data.lib === 'discord.js') {
       document.getElementById('discordJSRam').innerHTML = data.d.memory.heapUsed / 1024 / 1024;
+    }
+    if (data.lib === 'discord.io') {
+      document.getElementById('discordIORam').innerHTML = data.d.memory.heapUsed / 1024 / 1024;
+    }
+    if (data.lib === 'eris') {
+      document.getElementById('erisRam').innerHTML = data.d.memory.heapUsed / 1024 / 1024;
+    }
+    if (data.lib === 'discordie') {
+      document.getElementById('discordieRam').innerHTML = data.d.memory.heapUsed / 1024 / 1024;
     }
   }
 };
