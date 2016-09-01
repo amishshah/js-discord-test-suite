@@ -1,1 +1,21 @@
-<h1>Hello</h1>
+<table>
+  <tr>
+    <th>Library</th>
+    <th>Memory</th>
+  </tr>
+  <tr>
+    <td>discord.js</td>
+    <td id="discordJSRam"></td>
+  </tr>
+</table>
+<script>
+const source = new EventSource(`http://${prompt() || '[::1]'}:3000`);
+source.onmessage = m => {
+  const data = JSON.parse(m.data);
+  if (data.t === 'ram') {
+    if (data.lib === 'discord.js') {
+      document.getElementById('discordJSRam').innerHTML = data.d.memory.heapUsed / 1024 / 1024;
+    }
+  }
+};
+</script>
