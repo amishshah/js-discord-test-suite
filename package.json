@@ -1,0 +1,34 @@
+{
+  "name": "discord-js-libs-test",
+  "version": "0.0.1",
+  "description": "Compare library performance",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "test": "eslint src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hydrabolt/js-discord-test-suite.git"
+  },
+  "keywords": [
+    "discord",
+    "test",
+    "lib",
+    "eris",
+    "discord.js",
+    "discord.io",
+    "discordie"
+  ],
+  "author": "Amish Shah <amishshah.2k@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/hydrabolt/js-discord-test-suite/issues"
+  },
+  "homepage": "https://github.com/hydrabolt/js-discord-test-suite#readme",
+  "dependencies": {
+    "discord.io": "^2.1.2",
+    "discord.js": "github:hydrabolt/discord.js#indev-rewrite",
+    "discordie": "^0.8.1",
+    "eris": "^0.3.0"
+  }
+}
