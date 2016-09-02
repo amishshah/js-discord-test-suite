@@ -24,7 +24,7 @@ client.on('message', (user, userID, channelID, message) => {
   }
   client.sendMessage({
     to: channelID,
-    message: '!pong!',
+    message: 'discord.io says !pong!',
   });
 });
 
