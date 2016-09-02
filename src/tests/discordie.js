@@ -10,7 +10,9 @@ client.connect({ token: auth.token });
 client.Dispatcher.on('GATEWAY_READY', e => {
   console.log('ready!');
   client.Users.fetchMembers()
-    .then(() => console.log('received all members'));
+    .then(() => {
+      console.log('received all members')
+    });
 });
 
 client.Dispatcher.on('MESSAGE_CREATE', e => {
@@ -18,3 +20,14 @@ client.Dispatcher.on('MESSAGE_CREATE', e => {
     e.message.channel.sendMessage('!pong!');
   }
 });
+
+setInterval(() => {
+  process.send({
+    t: 'cache-stats',
+    d: {
+      users: client.Users.size,
+      guilds: client.Guilds.size,
+      channels: client.Channels.size + client.DirectMessageChannels.size,
+    },
+  });
+}, 500);

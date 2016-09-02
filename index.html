@@ -1,0 +1,138 @@
+<script src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script type="text/javascript">
+window.data = {
+  discordjs : [],
+  discordio : [],
+  discordie : [],
+  eris : []
+};
+window.onload = function() {
+  window.chart = new CanvasJS.Chart("chartContainer", {
+    dataPointWidth: 20,
+    zoomEnabled: false,
+    animationEnabled: false,
+    title: {
+      text: "Library Memory Comparison"
+    },
+    axisY2: {
+      valueFormatString: "0.0",
+      interval: 10,
+      interlacedColor: "#F5F5F5",
+      gridColor: "#D7D7D7",
+      tickColor: "#D7D7D7"
+    },
+    theme: "theme2",
+    toolTip: {
+      shared: true
+    },
+    legend: {
+      verticalAlign: "bottom",
+      horizontalAlign: "center",
+      fontSize: 15,
+      fontFamily: "Lucida Sans Unicode"
+    },
+    data: [{
+      type: "line",
+      lineThickness: 3,
+      axisYType: "secondary",
+      showInLegend: true,
+      name: "Discord.JS",
+      dataPoints: data.discordjs
+    }, {
+      type: "line",
+      lineThickness: 3,
+      showInLegend: true,
+      name: "Eris",
+      axisYType: "secondary",
+      dataPoints: data.eris
+    }, {
+      type: "line",
+      lineThickness: 3,
+      showInLegend: true,
+      name: "Discordie",
+      axisYType: "secondary",
+      dataPoints: data.discordie
+    }, {
+      type: "line",
+      lineThickness: 3,
+      showInLegend: true,
+      name: "Discord.io",
+      axisYType: "secondary",
+      dataPoints: data.discordio
+    }],
+    legend: {
+      cursor: "pointer",
+      itemclick: function(e) {
+        if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+          e.dataSeries.visible = false;
+        } else {
+          e.dataSeries.visible = true;
+        }
+        chart.render();
+      }
+    }
+  });
+  chart.render();
+}
+</script>
+<style>
+td {
+  padding: 6px;
+  background: #eee;
+}
+th {
+  padding: 8px;
+  background: #fafafa;
+}
+</style>
+
+<table>
+  <tr>
+    <th>Library</th>
+    <th>Memory (MB)</th>
+    <th>Users</th>
+    <th>Channels</th>
+    <th>Guilds</th>
+  </tr>
+  <tr id="discordjs">
+    <td>discord.js</td>
+    <td></td><td></td><td></td><td></td>
+  </tr>
+  <tr id="discordio">
+    <td>discord.io</td>
+    <td></td><td></td><td></td><td></td>
+  </tr>
+  <tr id="discordie">
+    <td>discordie</td>
+    <td></td><td></td><td></td><td></td>
+  </tr>
+  <tr id="eris">
+    <td>eris</td>
+    <td></td><td></td><td></td><td></td>
+  </tr>
+</table>
+<br />
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+<script>
+const source = new EventSource(`http://${prompt() || '[::1]'}:3000`);
+source.onmessage = m => {
+  const data = JSON.parse(m.data);
+  const lib = data.lib.split('.').join('');
+  const row = document.getElementById(lib);
+  const cells = row.children;
+  const chart = window.chart;
+  const ldata = window.data;
+  if (data.t === 'ram') {
+    ldata[lib].push({
+      x: ldata[lib].length,
+      y: Number((data.d.memory.heapUsed / 1024 / 1024).toFixed(2))
+    });
+    chart.render();
+    cells[1].innerHTML = (data.d.memory.heapUsed / 1024 / 1024).toFixed(2);
+  } else if (data.t === 'cache-stats') {
+    cells[2].innerHTML = data.d.users;
+    cells[3].innerHTML = data.d.channels;
+    cells[4].innerHTML = data.d.guilds;
+  }
+};
+</script>

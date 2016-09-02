@@ -19,3 +19,14 @@ client.on('message', message => {
 });
 
 client.login(auth.token);
+
+setInterval(() => {
+  process.send({
+    t: 'cache-stats',
+    d: {
+      users: client.users.size,
+      guilds: client.guilds.size,
+      channels: client.channels.size,
+    },
+  });
+}, 500);

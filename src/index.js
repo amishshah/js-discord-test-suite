@@ -20,7 +20,7 @@ function spawnTest(file) {
   proc.on('message', m => {
     sendMessage({
       lib,
-      t: 'ram',
+      t: m.t,
       d: m.d,
     });
   });

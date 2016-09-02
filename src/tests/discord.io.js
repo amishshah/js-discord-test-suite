@@ -16,6 +16,7 @@ client.once('ready', () => {
 
 client.once('allUsers', () => {
   console.log('All users received');
+  console.log('discord.io', Object.keys(client.users).length, Object.keys(client.servers).length);
 });
 
 client.on('message', (user, userID, channelID, message) => {
@@ -27,3 +28,14 @@ client.on('message', (user, userID, channelID, message) => {
     message: '!pong!',
   });
 });
+
+setInterval(() => {
+  process.send({
+    t: 'cache-stats',
+    d: {
+      users: Object.keys(client.users).length,
+      guilds: Object.keys(client.servers).length,
+      channels: Object.keys(client.channels).length + Object.keys(client.directMessages).length,
+    },
+  });
+}, 500);
