@@ -16,7 +16,6 @@ client.once('ready', () => {
 
 client.once('allUsers', () => {
   console.log('All users received');
-  console.log('discord.io', Object.keys(client.users).length, Object.keys(client.servers).length);
 });
 
 client.on('message', (user, userID, channelID, message) => {
