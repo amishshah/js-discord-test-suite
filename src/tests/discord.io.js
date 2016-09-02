@@ -12,6 +12,16 @@ const client = new Discord.Client({
 client.once('ready', () => {
   console.log('ready');
   client.getAllUsers();
+  setInterval(() => {
+    process.send({
+      t: 'cache-stats',
+      d: {
+        users: Object.keys(client.users).length,
+        guilds: Object.keys(client.servers).length,
+        channels: Object.keys(client.channels).length + Object.keys(client.directMessages).length,
+      },
+    });
+  }, 500);
 });
 
 client.once('allUsers', () => {
@@ -27,14 +37,3 @@ client.on('message', (user, userID, channelID, message) => {
     message: 'discord.io says !pong!',
   });
 });
-
-setInterval(() => {
-  process.send({
-    t: 'cache-stats',
-    d: {
-      users: Object.keys(client.users).length,
-      guilds: Object.keys(client.servers).length,
-      channels: Object.keys(client.channels).length + Object.keys(client.directMessages).length,
-    },
-  });
-}, 500);

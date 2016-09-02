@@ -10,7 +10,16 @@ const bot = new Eris(auth.token, {
 
 bot.on('ready', () => {
   console.log('ready');
-  const client = bot;
+  setInterval(() => {
+    process.send({
+      t: 'cache-stats',
+      d: {
+        users: bot.users.size,
+        guilds: bot.guilds.size,
+        channels: bot.groupChannels.size + bot.privateChannels.size + Object.keys(bot.channelGuildMap).length,
+      },
+    });
+  }, 500);
 });
 
 bot.on('messageCreate', msg => {
@@ -20,14 +29,3 @@ bot.on('messageCreate', msg => {
 });
 
 bot.connect();
-
-setInterval(() => {
-  process.send({
-    t: 'cache-stats',
-    d: {
-      users: bot.users.size,
-      guilds: bot.guilds.size,
-      channels: bot.groupChannels.size + bot.privateChannels.size + Object.keys(bot.channelGuildMap).length,
-    },
-  });
-}, 500);
