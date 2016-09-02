@@ -3,6 +3,8 @@ const express = require('express');
 const eventsource = require('express-eventsource');
 const cors = require('cors');
 
+require('open')('./index.html');
+
 const sse = eventsource({
   connections: 2,
 });

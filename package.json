@@ -32,6 +32,7 @@
     "discordie": "^0.8.1",
     "eris": "^0.3.0",
     "express": "^4.14.0",
-    "express-eventsource": "0.0.4"
+    "express-eventsource": "0.0.4",
+    "open": "0.0.5"
   }
 }

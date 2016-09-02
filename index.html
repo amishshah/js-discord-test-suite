@@ -114,7 +114,7 @@ th {
 <br />
 <div id="chartContainer" style="height: 300px; width: 100%;"></div>
 <script>
-const source = new EventSource(`http://${prompt() || '[::1]'}:3000`);
+const source = new EventSource('http://localhost:3000');
 source.onmessage = m => {
   const data = JSON.parse(m.data);
   const lib = data.lib.split('.').join('');
