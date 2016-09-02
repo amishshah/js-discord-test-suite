@@ -5,4 +5,4 @@ setInterval(() => {
       memory: process.memoryUsage(),
     },
   });
-}, 200);
+}, 400);
