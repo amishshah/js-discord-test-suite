@@ -110,10 +110,30 @@ th {
     <td>eris</td>
     <td></td><td></td><td></td><td></td>
   </tr>
-</table>
+</table>  
+<br />
+<b>Memory view: </b>
+<select onchange="setChartView()" id="memViewOptions">
+  <option>heapUsed</option>
+  <option>heapTotal</option>
+  <option selected>rss</option>
+</select>
 <br />
 <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+<a href="https://github.com/hydrabolt/js-discord-test-suite">github: discord js library test suite</a><br />
+<a href="https://github.com/hydrabolt">hydrabolt</a><br />
 <script>
+window.memView = 'rss';
+function setChartView() {
+  const e = document.getElementById("memViewOptions");
+  window.memView = e.options[e.selectedIndex].value;
+  for (const key in window.data) {
+    while (window.data[key].length > 0) {
+      window.data[key].pop();
+    }
+  }
+}
+
 const source = new EventSource('http://localhost:3000');
 source.onmessage = m => {
   const data = JSON.parse(m.data);
@@ -123,12 +143,13 @@ source.onmessage = m => {
   const chart = window.chart;
   const ldata = window.data;
   if (data.t === 'ram') {
+    const mem = (data.d.memory[window.memView] / 1024 / 1024).toFixed(2);
     ldata[lib].push({
       x: ldata[lib].length,
-      y: Number((data.d.memory.heapUsed / 1024 / 1024).toFixed(2))
+      y: Number(mem)
     });
     chart.render();
-    cells[1].innerHTML = (data.d.memory.heapUsed / 1024 / 1024).toFixed(2);
+    cells[1].innerHTML = mem;
   } else if (data.t === 'cache-stats') {
     cells[2].innerHTML = data.d.users;
     cells[3].innerHTML = data.d.channels;
