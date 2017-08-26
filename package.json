@@ -27,10 +27,9 @@
   "homepage": "https://github.com/hydrabolt/js-discord-test-suite#readme",
   "dependencies": {
     "cors": "^2.8.0",
-    "discord.io": "^2.1.2",
-    "discord.js": "github:hydrabolt/discord.js#indev-rewrite",
-    "discordie": "^0.8.1",
-    "eris": "^0.3.0",
+    "discord.js": "github:hydrabolt/discord.js",
+    "discordie": "0.11.0",
+    "eris": "0.7.1",
     "express": "^4.14.0",
     "express-eventsource": "0.0.4",
     "open": "0.0.5"

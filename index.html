@@ -2,7 +2,6 @@
 <script type="text/javascript">
 window.data = {
   discordjs : [],
-  discordio : [],
   discordie : [],
   eris : []
 };
@@ -52,13 +51,6 @@ window.onload = function() {
       name: "Discordie",
       axisYType: "secondary",
       dataPoints: data.discordie
-    }, {
-      type: "line",
-      lineThickness: 3,
-      showInLegend: true,
-      name: "Discord.io",
-      axisYType: "secondary",
-      dataPoints: data.discordio
     }],
     legend: {
       cursor: "pointer",
@@ -96,10 +88,6 @@ th {
   </tr>
   <tr id="discordjs">
     <td>discord.js</td>
-    <td></td><td></td><td></td><td></td>
-  </tr>
-  <tr id="discordio">
-    <td>discord.io</td>
     <td></td><td></td><td></td><td></td>
   </tr>
   <tr id="discordie">

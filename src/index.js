@@ -31,6 +31,5 @@ function spawnTest(file) {
 [
   'src/tests/discordie',
   'src/tests/discord.js',
-  'src/tests/discord.io',
   'src/tests/eris',
 ].map((file, index) => setTimeout(() => spawnTest(file), index * 6000));
